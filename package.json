@@ -17,6 +17,12 @@
   "engines": {
     "node": ">=24"
   },
+  "files": [
+    "spec/",
+    "architecture/",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
     "verify": "node scripts/verify-spec.mjs",
     "test": "npm --prefix spec test",
