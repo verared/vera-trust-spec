@@ -1,0 +1,68 @@
+# Vera Trust Spec (`@verared/spec`)
+
+Normative specifications, versioned JSON schemas, and cryptographic test vectors for the **Vera Trust Stack** — published under **Creative Commons Attribution 4.0 International (`CC-BY-4.0`)**.
+
+- **Author:** Gerardo Loyola
+- **License:** [CC BY 4.0](./LICENSE) (reimplementation, translation, and commercial use are permitted with attribution; no registration or certification is required)
+- **Package:** `@verared/spec` (`0.1.0-draft.1`, draft snapshot — not yet an S4/S6 final normative release)
+
+---
+
+## Pillars of the Vera Trust Stack
+
+The **Vera Trust Stack** separates identity, evidence, local policy evaluation, and verifiable history into four distinct protocol layers:
+
+1. **APW (Authenticated Portable Web)** — Cryptographic site/entity identity (`did:apw`), DNS-anchored key history, signed state artifacts, and witness statements.
+2. **Local Trust Protocol (LTP)** — Decentralized evidence acquisition, proof packaging, and local policy evaluation: **each node applies its own policy to verified evidence** (no global authority, no centralized trust oracle).
+3. **SVRI (Site Verifiable Reputation Index)** — Consumable output vector derived from verified evidence tiers and inference flags, with qualitative public projections.
+4. **HSVR (Historical Site Verifiable Record)** — Verifiable historical record of trust/reputation state transitions.
+
+> **Naming continuity:** This specification repository is the canonical continuation of `ltp-specification-assets` previously maintained under `docs/protocol-apw/` in [`geroiloyola/portaless`](https://github.com/geroiloyola/portaless). All wire identifiers, URN namespaces (`urn:ltp:schemas:0.1:*`), signed byte formats, G1 corpus digests, and author/reviewer records are preserved byte-for-byte without modification.
+
+---
+
+## Repository Map
+
+The verbatim, byte-identical normative snapshot lives under [`spec/`](./spec/) so that all 18 SHA-256 commitments in [`spec/LTP-APPROVAL-RECORD.md`](./spec/LTP-APPROVAL-RECORD.md) — including the original [`spec/README.md`](./spec/README.md) — verify unchanged:
+
+| Path | Contents |
+|---|---|
+| [`spec/APW-SPEC-v1.3.md`](./spec/APW-SPEC-v1.3.md) | Consolidated normative APW v1.3 specification (English canonical) |
+| [`spec/ERRATA.md`](./spec/ERRATA.md) | Errata record (`E-11..E-16` normative supplements in effect) |
+| [`spec/SVRI-v1.0.md`](./spec/SVRI-v1.0.md) | Normative SVRI v1.0 / HSVR supplement (`E-16`) |
+| [`spec/APW-IDENTITY-BOOTSTRAP-DRAFT-v0.1.md`](./spec/APW-IDENTITY-BOOTSTRAP-DRAFT-v0.1.md) | APW Identity Bootstrap Draft 0.1 |
+| [`spec/LTP-SERIALIZATION-DRAFT-v0.1.md`](./spec/LTP-SERIALIZATION-DRAFT-v0.1.md) | S1 canonical serialization, JCS rules, and schema contracts |
+| [`spec/LTP-INDEX-DRAFT-v0.1.md`](./spec/LTP-INDEX-DRAFT-v0.1.md) | Witness Index Draft 0.1 |
+| [`spec/LTP-PROOF-PACKAGE-DRAFT-v0.1.md`](./spec/LTP-PROOF-PACKAGE-DRAFT-v0.1.md) | Proof Package Draft 0.1 |
+| [`spec/LTP-GATES-AND-AUTHORIZATIONS.md`](./spec/LTP-GATES-AND-AUTHORIZATIONS.md) | Canonical G1–G5 authorization register |
+| [`spec/LTP-APPROVAL-RECORD.md`](./spec/LTP-APPROVAL-RECORD.md) | Accepted G1 static corpus & 18-file SHA-256 approval record (`wNQ9gG2BPs8JO1wPsiPgoz265juDT-TCjuGMbTzSYXA`) |
+| [`spec/STARTER-KIT.md`](./spec/STARTER-KIT.md) | Language-agnostic implementer starter kit |
+| [`spec/schemas/v0.1/`](./spec/schemas/v0.1/) | Versioned JSON Schemas and JCS manifest (`2-OWDPkYHe3A_DYyUbSsE5t1jFRyNxNM6DnVml-Tp7w`) |
+| [`spec/vectors/`](./spec/vectors/) | Immutable APW v1.3, SVRI v1.0, and Local Trust (`v0.1`, `v0.2`, `v0.3`, `reputation/v0.1`) test corpora |
+| [`spec/tools/`](./spec/tools/) | Standalone authoring and cross-check tools (isolated lockfile in `spec/package-lock.json`) |
+| [`scripts/verify-spec.mjs`](./scripts/verify-spec.mjs) | Zero-dependency Node 24 cryptographic integrity verifier run in CI |
+
+---
+
+## Verification
+
+Run the zero-dependency integrity verifier (checks all 18/18 SHA-256 file hashes, all JSON schemas/vectors, RFC 8785 JCS bundle/corpus digests, Markdown links, runtime-code boundary, and CC BY 4.0 license metadata):
+
+```bash
+node scripts/verify-spec.mjs
+```
+
+Run the standalone cross-check test suite under `spec/`:
+
+```bash
+npm ci --prefix spec --ignore-scripts
+npm --prefix spec test
+```
+
+---
+
+## Reference Implementation Notice
+
+Any mention of **Portaless** (`geroiloyola/portaless`) or historical repository paths inside the frozen G1 documents under `spec/` refers **solely to the reference implementation** and historical provenance. This specification repository has zero runtime code dependencies on Portaless or any other implementation.
+
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for DCO (`Signed-off-by`) and immutability rules.

@@ -1,0 +1,44 @@
+name: Verify Vera Trust Spec
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify-spec:
+    name: Cryptographic & Boundary Verification (Node 24)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Zero-dependency cryptographic & boundary verification
+        run: node scripts/verify-spec.mjs
+
+      - name: Install standalone spec cross-check dependencies
+        run: npm ci --prefix spec --ignore-scripts --no-audit --no-fund
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install DNSSEC/crypto fixture primitive verifiers
+        run: python -m pip install -r spec/requirements-audit.txt
+
+      - name: Standalone spec cross-check & audit suite
+        working-directory: spec
+        run: |
+          npm run check:author
+          npm run check:numbers
+          npm run audit
+          npm run check:core
+          npm run audit:core
+          npm run check:ab
+          npm run audit:ab
+          npm test

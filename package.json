@@ -1,0 +1,27 @@
+{
+  "name": "@verared/spec",
+  "version": "0.1.0-draft.1",
+  "description": "Normative specifications, JSON schemas, and cryptographic test vectors for the Vera Trust Stack (APW, Local Trust Protocol, SVRI, HSVR).",
+  "private": true,
+  "type": "module",
+  "license": "CC-BY-4.0",
+  "author": "Gerardo Loyola",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/verared/vera-trust-spec.git"
+  },
+  "homepage": "https://github.com/verared/vera-trust-spec#readme",
+  "bugs": {
+    "url": "https://github.com/verared/vera-trust-spec/issues"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "verify": "node scripts/verify-spec.mjs",
+    "test": "npm --prefix spec test",
+    "audit": "npm --prefix spec run audit",
+    "audit:core": "npm --prefix spec run audit:core",
+    "audit:ab": "npm --prefix spec run audit:ab"
+  }
+}
