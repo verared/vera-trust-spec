@@ -6,6 +6,7 @@ Normative specifications, versioned JSON schemas, and cryptographic test vectors
 - **License:** [CC BY 4.0](./LICENSE) (reimplementation, translation, and commercial use are permitted with attribution; no registration or certification is required)
 - **Package:** `@verared/spec` (`0.1.0-draft.1`, draft snapshot — not yet an S4/S6 final normative release)
 - **Roadmap:** [Standardization and adoption milestones](./ROADMAP.md)
+- **Vision:** [Portable identity, evidence and independent verification](./VISION.md)
 
 ## What this repo is / What this repo is not
 
@@ -38,6 +39,14 @@ The **Vera Trust Stack** separates identity, evidence, local policy evaluation, 
 > **Naming continuity:** This specification repository is the canonical continuation of `ltp-specification-assets` previously maintained under `docs/protocol-apw/` in [`geroiloyola/portaless`](https://github.com/geroiloyola/portaless). All wire identifiers, URN namespaces (`urn:ltp:schemas:0.1:*`), signed byte formats, G1 corpus digests, and author/reviewer records are preserved byte-for-byte without modification.
 
 ---
+
+## What an implementer can verify
+
+Start from a domain's APW TXT record, resolve its identity document and key history, and verify a signed artifact against the applicable key window. External witnesses can let an independent verifier compare observations and detect disagreement. A Witness Index helps discover those observations; inclusion does not prove an identity or attest to the truth of a claim.
+
+Local Trust Protocol defines how evidence is used under local policy. SVRI describes the derived projection, including the role of evidence tiers and the share due to inference; HSVR describes verifiable reconstruction of that projection over time. A `community attester` contributes signed, attributable evidence, subject to the applicable eligibility and deduplication rules. A signature establishes provenance, and an aggregate is not a resource grant.
+
+Use the [Starter Kit](./spec/STARTER-KIT.md) and vectors for independent verification, the [architecture](./spec/LTP-STACK-ARCHITECTURE.md) to understand the layers, and the [errata](./spec/ERRATA.md) when following the frozen text. The [Vera Trust Stack implementation](https://github.com/verared/vera-trust-stack) provides a reference for comparison. Passing its fixtures is not independent conformance or evidence of a live network; the [roadmap](./ROADMAP.md) distinguishes those milestones.
 
 ## Canonical reading guide
 
