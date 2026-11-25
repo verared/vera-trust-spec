@@ -48,6 +48,8 @@ Local Trust Protocol defines how evidence is used under local policy. SVRI descr
 
 Use the [Starter Kit](./spec/STARTER-KIT.md) and vectors for independent verification, the [architecture](./spec/LTP-STACK-ARCHITECTURE.md) to understand the layers, and the [errata](./spec/ERRATA.md) when following the frozen text. The [Vera Trust Stack implementation](https://github.com/verared/vera-trust-stack) provides a reference for comparison. Passing its fixtures is not independent conformance or evidence of a live network; the [roadmap](./ROADMAP.md) distinguishes those milestones.
 
+**Conformance status:** the reference suite exercises [110 cases across 11 vectors](./ROADMAP.md#phase-2--executable-conformance-and-the-starter-kit). V-06 is still missing from the executable minimum. The [standardization roadmap](./ROADMAP.md#phase-4--independent-implementation-and-stable-publication) tracks the independent verifier and normative publication separately from the draft checksums.
+
 ## Canonical reading guide
 
 1. **Foundational architecture:** Start with [Vera Trust Stack architecture](./spec/LTP-STACK-ARCHITECTURE.md), the original architecture document in this snapshot. The [resolution chain proposal](./architecture/resolution-chain-proposal.md) and [runtime integration proposal](./architecture/ltp-runtime-integration-proposal.md) are historical design context.
