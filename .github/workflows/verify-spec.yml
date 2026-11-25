@@ -2,7 +2,7 @@ name: Verify Vera Trust Spec
 
 on:
   push:
-    branches: [main]
+    branches: [main, docs/p1-links-and-canonical-guide]
   pull_request:
 
 jobs:
@@ -18,7 +18,9 @@ jobs:
           node-version: "24"
 
       - name: Zero-dependency cryptographic & boundary verification
-        run: node scripts/verify-spec.mjs
+        run: |
+          node scripts/verify-spec.mjs
+          node --test scripts/verify-markdown-links.test.mjs
 
       - name: Install standalone spec cross-check dependencies
         run: npm ci --prefix spec --ignore-scripts --no-audit --no-fund
