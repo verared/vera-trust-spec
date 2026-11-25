@@ -5,6 +5,24 @@ Normative specifications, versioned JSON schemas, and cryptographic test vectors
 - **Author:** Gerardo Loyola
 - **License:** [CC BY 4.0](./LICENSE) (reimplementation, translation, and commercial use are permitted with attribution; no registration or certification is required)
 - **Package:** `@verared/spec` (`0.1.0-draft.1`, draft snapshot — not yet an S4/S6 final normative release)
+- **Roadmap:** [Standardization and adoption milestones](./ROADMAP.md)
+
+## What this repo is / What this repo is not
+
+- **Is:** The specification, versioned schemas, test vectors, and conformance evidence for the Vera Trust Stack.
+- **Is not:** A runtime, a hosted trust authority, or a requirement to use any particular implementation.
+
+### Ecosystem and licenses
+
+The three `geroiloyola/portaless*` repositories are listed only as a non-normative reference ecosystem. Portaless is the first consumer; neither Verared repository depends on or is coupled to these three repositories.
+
+| Repository | License | Responsibility |
+|---|---|---|
+| [`verared/vera-trust-spec`](https://github.com/verared/vera-trust-spec) | CC BY 4.0 | Specification, schemas, and test vectors |
+| [`verared/vera-trust-stack`](https://github.com/verared/vera-trust-stack) | Apache-2.0 | TypeScript reference implementation |
+| [`geroiloyola/portaless-plugin-sdk`](https://github.com/geroiloyola/portaless-plugin-sdk) | MIT | Public contract for plugin authors |
+| [`geroiloyola/portaless-templates`](https://github.com/geroiloyola/portaless-templates) | CC0-1.0 | Reusable templates |
+| [`geroiloyola/portaless`](https://github.com/geroiloyola/portaless) | AGPL-3.0-or-later | Host application and its integrations |
 
 ---
 
