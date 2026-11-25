@@ -30,7 +30,18 @@ Where a required proof cannot be verified, fail closed and say why. Distinguish 
 
 Ask what happens if the first implementation disappears, an index omits a subject, a witness goes offline or a distribution provider changes its rules. Acceptable outcomes are continued verification, an explicit degradation, or portable evidence that can be checked with a replacement. A design that silently trusts one provider, one index, or the original author fails this test.
 
-Build the smallest interoperable capability that lets the next independent operator participate. Correctness defects belong in current work; reusable capabilities should serve a concrete adopter. Broader federation, shared rankings or a new trust service require independent evidence before Verared claims they work. General-purpose consensus, universal state schemas and commercial services are outside the protocol core.
+## The rule that decides what gets built
+
+Build the smallest interoperable capability that lets the next independent operator participate. Use these classes in both roadmaps:
+
+| Class | Decision rule |
+|---|---|
+| `NOW` | A demonstrated correctness defect, security gap or broken interoperability boundary: fix it and verify the fix. |
+| `ENABLE` | A small reusable capability that removes a documented barrier for the next implementer or operator. Build it when that next step is concrete. |
+| `GATED` | Work that depends on independent operators, evidence, a reviewed provider or an explicit decision. Name the evidence first; implementation alone does not close the gate. |
+| `OUT OF CORE` | Work owned by a consumer, provider or separate project. General-purpose consensus, universal state schemas and commercial services do not belong in the protocol core. |
+
+A gated item can be investigated before the gate closes. Do not claim it as deployed, interoperable or normative until the relevant evidence and decisions exist.
 
 ## Three horizons
 
