@@ -2,8 +2,9 @@
 // CC BY 4.0. Zero-dependency cryptographic & boundary verifier for verared/vera-trust-spec.
 import { createHash } from 'node:crypto';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
-import { dirname, relative, resolve } from 'node:path';
+import { relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { checkMarkdownLinks } from './verify-markdown-links.mjs';
 
 const repoRoot = fileURLToPath(new URL('../', import.meta.url));
 const specRoot = resolve(repoRoot, 'spec');
@@ -11,6 +12,7 @@ const EXPECTED_G1_DIGEST = 'wNQ9gG2BPs8JO1wPsiPgoz265juDT-TCjuGMbTzSYXA';
 const EXPECTED_HISTORICAL_ANCHOR = '#6-reputation-based-read-governance--loyal-trust-protocol-v12--e-8-e-9';
 
 const failures = [];
+const frozenProse = new Set();
 function fail(msg) {
   failures.push(msg);
 }
@@ -71,6 +73,7 @@ if (!existsSync(approvalRecordPath)) {
   } else {
     const record = JSON.parse(match[1]);
     const entries = Object.entries(record.normativeFiles || {});
+    for (const [path] of entries) frozenProse.add(`spec/${path}`);
     if (entries.length !== 18) {
       fail(`Expected 18 normativeFiles in LTP-APPROVAL-RECORD.md, found ${entries.length}`);
     }
@@ -113,11 +116,12 @@ if (!existsSync(approvalRecordPath)) {
       ['corpusDigest (G1)', 'vectors/ltp/v0.3/manifest.json', record.corpusDigest],
       ['numericExtensionDigest', 'vectors/ltp/v0.1/numeric-serialization.json', record.numericExtensionDigest],
     ];
+    let matched = 0;
     for (const [label, relPath, expected] of jcsChecks) {
       const actual = sha256JcsBase64Url(resolve(specRoot, relPath));
       if (actual !== expected) {
         fail(`JCS digest mismatch for ${label} (spec/${relPath}): expected ${expected}, got ${actual}`);
-      }
+      } else matched++;
     }
     if (record.corpusDigest !== EXPECTED_G1_DIGEST || record.ownerDecision?.corpusDigest !== EXPECTED_G1_DIGEST) {
       fail(`G1 corpusDigest mismatch: expected ${EXPECTED_G1_DIGEST}`);
@@ -125,7 +129,7 @@ if (!existsSync(approvalRecordPath)) {
     if (record.ownerDecision?.reviewer !== 'linstarkcorp') {
       fail('Reviewer record (linstarkcorp) missing or modified in LTP-APPROVAL-RECORD.md');
     }
-    console.log(`[verify-spec] JCS digests (5/5) & G1 (${EXPECTED_G1_DIGEST}): OK`);
+    console.log(`[verify-spec] JCS digests: ${matched}/${jcsChecks.length}; expected G1: ${EXPECTED_G1_DIGEST}`);
   }
 }
 
@@ -144,68 +148,8 @@ if (existsSync(apwSpecPath)) {
 }
 
 // 3. Verify local Markdown links and zero imports to Portaless code
-const mdFiles = walkFiles(repoRoot, (_, name) => name.endsWith('.md'));
-let checkedLinks = 0;
-let historicalExternalMonorepoLinks = 0;
-
-for (const mdFile of mdFiles) {
-  const relFile = relative(repoRoot, mdFile).replaceAll('\\', '/');
-  const inSpec = relFile.startsWith('spec/');
-  const lines = readFileSync(mdFile, 'utf8').split('\n');
-  let inCodeFence = false;
-  let inRefImplAppendix = false;
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    if (/^\s*```/.test(line)) {
-      inCodeFence = !inCodeFence;
-      continue;
-    }
-    if (inCodeFence) continue;
-    if (/^#{1,2} /.test(line)) {
-      inRefImplAppendix = /^## (?:Apéndice|Appendix).*implementación de referencia/i.test(line);
-    }
-
-    const targets = [
-      ...line.matchAll(/\]\(\s*<?([^\s)>]+)/g),
-      ...line.matchAll(/^\s*\[[^\]]+\]:\s*<?([^\s>]+)/g),
-    ];
-
-    for (const m of targets) {
-      const raw = m[1];
-      if (/^(?:https?:|mailto:|tel:|#)/i.test(raw)) continue;
-      let cleanPath = raw.split('#')[0].split('?')[0];
-      try {
-        cleanPath = decodeURIComponent(cleanPath);
-      } catch {
-        fail(`Malformed URI in ${relFile}:${i + 1}: ${raw}`);
-        continue;
-      }
-      if (!cleanPath) continue;
-
-      if (!inRefImplAppendix && /(?:^|\/)(?:functions|packages|src|server)\//i.test(cleanPath.replaceAll('\\', '/'))) {
-        fail(`Runtime code link outside reference-implementation appendix in ${relFile}:${i + 1}: ${raw}`);
-        continue;
-      }
-
-      const resolvedTarget = resolve(dirname(mdFile), cleanPath);
-      const relFromSpec = relative(specRoot, resolvedTarget);
-      if (inSpec && relFromSpec.startsWith('..')) {
-        // Frozen G1 historical links that pointed to sibling docs in the origin monorepo
-        historicalExternalMonorepoLinks++;
-        continue;
-      }
-
-      checkedLinks++;
-      if (!existsSync(resolvedTarget)) {
-        fail(`Broken local Markdown link in ${relFile}:${i + 1}: ${raw}`);
-      }
-    }
-  }
-}
-console.log(
-  `[verify-spec] Markdown local links checked: ${checkedLinks} OK (frozen G1 monorepo refs skipped: ${historicalExternalMonorepoLinks})`,
-);
+const links = checkMarkdownLinks(repoRoot, walkFiles(repoRoot, (_, name) => name.endsWith('.md')), frozenProse, fail);
+console.log(`[verify-spec] Markdown local links: ${links.checked} valid, ${links.historical} explicit frozen exceptions, ${links.broken} broken.`);
 
 // Check code/tool files for zero imports to Portaless runtime code
 const codeFiles = walkFiles(repoRoot, (_, name) => /\.(?:mjs|js|cjs|ts|py)$/.test(name));

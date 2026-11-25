@@ -1,14 +1,26 @@
 # Protocol APW — Erratas
 
-> **E-16 (normativa, vigente):** SVRI v1.0 complementa LTP; la especificación está en [`SVRI-v1.0.md`](./SVRI-v1.0.md) y sus vectores de verificación cruzada (mismo autor) en [`vectors/svri/v1.0/`](./vectors/svri/v1.0/).
+## Editorial notes for the frozen snapshot
+
+These navigation notes do not amend the approved bytes, wire identifiers, or conformance rules. The [approval record](./LTP-APPROVAL-RECORD.md#candidate-tuple) identifies the pinned prose; vectors and v0.1 schemas remain unchanged.
+
+| Frozen source | Historical destination | Where to look today |
+|---|---|---|
+| `APW-SPEC-v1.3.md:38` | `../../LICENSE`; `../architecture/licensing-boundaries.md` | [CC BY 4.0 specification license](../LICENSE) and the [canonical guide](../README.md#canonical-reading-guide). Historical implementation license statements refer to the previous repository, not to the separate [Apache-2.0 reference stack](https://github.com/verared/vera-trust-stack). |
+| `LTP-CI-REVIEW.md:35–36` | `../../.github/workflows/unit-tests.yml`; `../../.github/workflows/full-tests.yml`; `../../.github/workflows/ci.yml` | These paths describe the previous monorepo; see [Verification](../README.md#verification) for the current workflow. |
+| `README.md:77,100` under `spec/` | `../api/`; `../../ROADMAP.md` | [APW Starter Kit](./STARTER-KIT.md) for implementation; [canonical guide](../README.md#canonical-reading-guide) for current project and status links. |
+
+Use **Local Trust Protocol**, **Vera Trust Stack**, **Witness Index** and **community attester** in current prose. Earlier names and former host-specific instructions in the pinned documents and vectors are historical. In particular, use the Starter Kit instead of the original reference command in `vectors/v1.3/README.md`. The [foundational architecture](./LTP-STACK-ARCHITECTURE.md) distinguishes the historical `apw-index` witness directory from the proposed proof-distribution service; this editorial vocabulary does not equate their wire formats or roles.
+
+> **E-16 (normativa, vigente):** SVRI v1.0 complementa Local Trust Protocol; la especificación está en [`SVRI-v1.0.md`](./SVRI-v1.0.md) y sus vectores de verificación cruzada (mismo autor) en [`vectors/svri/v1.0/`](./vectors/svri/v1.0/).
 
 > **INTEGRADAS (octubre 2026).** E-1 a E-11 estan incorporadas al cuerpo de la especificacion normativa vigente [`APW-SPEC-v1.3.md`](./APW-SPEC-v1.3.md) (E-10 en la seccion 5.7, E-11 en la 6.6 y en el Anexo A); sus vectores de prueba viven ahora en [`APW-VECTORS-v1.3.md`](./APW-VECTORS-v1.3.md). **E-12 es informativa** (agregador del Index): no cambia ningun requisito normativo de v1.3 y no requiere consolidacion; documenta que dos puntos marcados "fuera del alcance de esta version" en 5.7/7 ya existen en la implementacion de referencia. **E-13 es normativa y rige desde su publicacion**: agrega `community` al enum `src` de 5.3 y define lo que 6.7 exigia sin definir (emisor distinto, `min_weight` del predicado comunitario y antiguedad minima del emisor). Todavia **no esta consolidada en el cuerpo de v1.3**; como toda errata publicada, es de efecto inmediato y la proxima consolidacion la integra. **E-14 es normativa y rige desde su publicacion**: define el documento firmado de paginas publicables (`/.well-known/apw-pages.jws`, `typ apw-pages+jws`) que la seccion 7 dejaba sin formato, mas las guardas normativas del consumidor (fetch por hop, cap por streaming, bloqueo de rangos privados, cache obligatoria, render saneado). **E-15 es normativa y rige desde su publicacion**: define el manifiesto de plugin firmado por el publicador (`typ apw-plugin-manifest+jws`, la firma cubre `requestedCapabilities`) y la regla de instalacion (instalar NO concede; podar removidas, no auto-conceder ampliadas; inmutabilidad por version). Ninguna de las dos esta consolidada. Este archivo se conserva como registro historico de las correcciones y su motivacion. Ante cualquier discrepancia de redaccion, manda la version mas nueva (v1.3 mas E-13, E-14 y E-15).
 
-> **Actualización de estado:** E-16 es normativa y está vigente, además de las erratas enumeradas en el resumen histórico anterior. Su suplemento SVRI v1.0 gobierna la proyección de LTP donde corresponda.
+> **Actualización de estado:** E-16 es normativa y está vigente, además de las erratas enumeradas en el resumen histórico anterior. Su suplemento SVRI v1.0 gobierna la proyección de Local Trust Protocol donde corresponda.
 
 Correcciones a la especificacion publicada. Cada errata reemplaza el texto indicado; el resto del documento sigue vigente. **Licencia**: CC BY 4.0 (ver [Licencia y gobernanza](./APW-SPEC-v1.3.md#license-and-governance)).
 
-E-16 publica el contrato SVRI v1.0 en [`SVRI-v1.0.md`](./SVRI-v1.0.md), suplemento normativo de LTP/APW.
+E-16 publica el contrato SVRI v1.0 en [`SVRI-v1.0.md`](./SVRI-v1.0.md), suplemento normativo de Local Trust Protocol y APW.
 
 ## E-1 — Calculo de la huella `k` (APW v1.2, seccion 5.1)
 
@@ -234,7 +246,7 @@ El factor 1.5, el numero de rondas y P son valores por defecto de esta version, 
 - La emision de `reader_conduct` sigue exigiendo `operatorKeyId` = `k`: un lector en rollover lee, pero no acumula reputacion.
 - Implementacion: `packages/apw-resolver/src/scoring/reader-identity.ts` y `packages/apw-resolver/src/did-apw/history-resolver.ts`; tests `tests/unit/apw-reader-retired-keys.test.ts` y `tests/unit/apw-history-chain.test.ts`.
 
-## E-9 — Reputacion del lector: reader_conduct publicado y completitud (LTP v1.2, 6.4; cierra el pendiente de E-8)
+## E-9 — Reputacion del lector: reader_conduct publicado y completitud (Local Trust Protocol v1.2, 6.4; cierra el pendiente de E-8)
 
 **Fecha**: Octubre 2026
 
@@ -283,7 +295,7 @@ El factor 1.5, el numero de rondas y P son valores por defecto de esta version, 
 
 **Implementacion**: `did-apw/witness.ts`, `functions/admin/api/witness/record.js`, `functions/.well-known/apw-witnesses.json.js`, `dnslink/cli.mjs` (modo `--anchor`), `admin/api/apw-verification-status.js` (`anchor`), `scoring/reader-conduct-jti-store.ts`, `scoring/reader-conduct-auto.ts` y el hook de `functions/_middleware.js`.
 
-## E-11 — Proyeccion de las dimensiones W publicas (LTP v1.3, 6.6 y Anexo A; cierra el ultimo pendiente de E-8)
+## E-11 — Proyeccion de las dimensiones W publicas (Local Trust Protocol v1.3, 6.6 y Anexo A; cierra el ultimo pendiente de E-8)
 
 **Fecha**: Octubre 2026
 
@@ -380,7 +392,7 @@ Esta errata **cierra B7 y las tres definiciones pendientes de 6.7**. No cambia e
 
 **Limitacion**: el instalador HTTP esta detras de un flag apagado por defecto mientras la revision externa del sandbox sigue pendiente. Desde la Fase 14 (§14.1) el manifiesto verificado viaja con el artefacto (`plugin_artifacts.manifest_json`) y `POST /admin/api/plugins/run` ejecuta desde `PluginArtifactStore` tras verificar `sha256Hex(code) === codeHash`, cayendo a disco solo cuando el plugin no tiene artefacto guardado.
 
-**Implementacion**: `packages/apw-resolver/src/did-apw/plugin-manifest.ts` (firma/verificacion), `packages/plugin-sandbox/src/registry/plugin-artifacts.ts` (store troceado), `packages/plugin-sandbox/src/install/reconcile.ts` (reconciliacion), `functions/admin/api/plugins/install.js` y `uninstall.js` (tras `PORTALESS_PLUGIN_INSTALLER`), y `PLUGIN_MANIFEST_TYP` en el SDK (`packages/plugin-sdk`); tests en `tests/unit/apw-plugin-manifest.test.ts`, `tests/unit/plugin-artifacts.test.ts` y `tests/unit/plugin-install-endpoint.test.ts`.
+**Implementación de referencia:** `@verared/apw` expone la firma y verificación del manifiesto. El almacenamiento y la reconciliación de instalaciones corresponden al host; esta especificación no requiere un instalador concreto.
 
 ## E-16 — SVRI: fidelidad de proyección de Local Trust Protocol y reconstrucción histórica (normativa)
 

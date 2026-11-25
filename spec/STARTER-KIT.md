@@ -1,7 +1,6 @@
 # APW Starter Kit — implement the protocol in your stack
 
-This guide is for someone who has **never seen Portaless's code** and wants
-to implement Protocol APW in any language. It is language-agnostic: every
+This guide is for anyone implementing Protocol APW independently. It is language-agnostic: every
 step is pseudocode plus a test vector you can check without running our
 repository. The normative document is
 [`APW-SPEC-v1.3.md`](./APW-SPEC-v1.3.md) (CC BY 4.0); when this guide and
@@ -13,7 +12,7 @@ code.
 whether the site at that domain controls a stable cryptographic identity
 (`did:apw`), whether its published key history is intact, and whether a
 piece of signed content (manifest, attestation) is authentic. No database,
-no server, no Portaless install. The only primitives you need:
+no server, and no reference implementation. The only primitives you need:
 
 - SHA-256
 - base64url (unpadded)
@@ -21,9 +20,9 @@ no server, no Portaless install. The only primitives you need:
 - JSON with deterministic serialization (for JWS)
 - DNS-over-HTTPS (HTTPS GET, JSON API — see below)
 
-The TypeScript reference implementation is the `.` export of
-`@portaless/apw-resolver` (`src/standalone.ts`), but you do not need it:
-the vectors below are enough to know you got it right.
+The TypeScript reference client is the `.` export of `@verared/apw` in
+[Vera Trust Stack](https://github.com/verared/vera-trust-stack). Independent
+implementations can use the vectors without installing that package.
 
 **Minimal conformance** (spec, Neutrality section) = passing vectors
 **V-01, V-03, V-05, V-06, V-08, V-09** and publishing the artifacts the
@@ -167,35 +166,33 @@ are arithmetic, not crypto.
 
 ## Run the conformance suite against your implementation
 
-You do not have to eyeball the vectors. The reference package publishes a runner
-you can point at the machine-readable vectors:
+Use the [machine-readable APW vectors](./vectors/v1.3/) to exercise your own
+implementation. To run the reference cross-check, use Node 24 in a checkout of
+Vera Trust Stack. Point `VERARED_SPEC_DIR` at this checkout's `spec/` directory
+and use a spec revision matching the stack's `SPEC-PIN.json`:
 
 ```sh
-# vectors live in this repo under docs/protocol-apw/vectors/v1.3/
-npx @portaless/apw-resolver apw-conformance <path-to-vectors>
+npm ci
+npm run build
+VERARED_SPEC_DIR=/absolute/path/to/vera-trust-spec/spec npm test -- tests/unit/apw-conformance-vectors.test.ts
 ```
 
-It prints pass/fail per case. The reference implementation runs the same suite
-in CI (**110/110 cases over 11 vectors**), so a green run is evidence you agree
-with the spec on the scored behavior; a red one points at the vector that broke.
-The bin is `apw-conformance` (`packages/apw-resolver`, `dist/conformance/cli.js`).
+The published `@verared/apw` archive does not register a conformance CLI.
+A passing reference run covers the cases exercised by that suite; it does not
+replace running your own implementation against the required vectors.
 
 ## From verifier to node (optional)
 
-A **verifier** — Steps 1–7 — needs no Portaless install, no node, no database:
+A **verifier** — Steps 1–7 — needs no reference implementation, node, or database:
 it reads DNS, `did.json` and the log over HTTPS and decides. That is the smallest
 useful thing to build, and it is enough to claim minimal conformance.
 
 A **node** is a bigger choice: running one lets you *publish* your own
 `did:apw` identity and log, *serve* your content's signed artifacts, and
 *participate* in the network (witness peers, run a Witness Index aggregator).
-That is a Portaless deployment, not a protocol step; start at
-[`../self-hosting.md`](../self-hosting.md) and the install guide
-[`../first-steps.md`](../first-steps.md). **Honest limit:** the discovery
-endpoint that would let nodes find each other is deliberately **not opened**
-until there are real peers — with one operator there is nothing to discover, and
-the network's exit criterion (an independent implementer publishing valid
-identity) closes with people, not code.
+Start with the [foundational architecture](./LTP-STACK-ARCHITECTURE.md) and
+the [Witness Index draft](./LTP-INDEX-DRAFT-v0.1.md#8-adoption-gate). The
+adoption gate distinguishes documented interfaces from independent deployment evidence.
 
 ---
 
@@ -221,7 +218,7 @@ the identity unchanged. **Honest limit**: the subject-mapping rule this
 path requires — stating that a `did:web:<domain>` publishing the same key
 and declaring the `did:apw:<domain>` log via `service` is recognized as
 the same subject for verification — is **not yet specified**; without it,
-"compatible" would be half-true (see `ROADMAP.md` Phase 4, item 5). Until
+"compatible" would be half-true. Until
 that erratum is published, an implementer must treat `did:web:<domain>`
 and `did:apw:<domain>` as **distinct subjects**, even when they share a
 key. The DNS TXT root of trust (Steps 3–6 above) is unaffected and fully
@@ -229,7 +226,7 @@ specified today.
 
 ## Where to ask questions / report spec bugs
 
-The protocol lives in this repository's `docs/protocol-apw/` tree; spec
-issues are best reported as issues on the Portaless repository citing the
-section number. Implementations are independent — there is no central
-registry to join.
+Start from the [canonical reading guide](../README.md#canonical-reading-guide).
+Report [specification issues](https://github.com/verared/vera-trust-spec/issues)
+with the section, revision, and vector ID when applicable. Report reference
+implementation issues in [Vera Trust Stack](https://github.com/verared/vera-trust-stack/issues).

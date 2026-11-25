@@ -17,7 +17,7 @@ Before editing any file under [`spec/`](./spec/):
 
 1. **Level A identifiers and wire formats are frozen.** Do not rename `did:apw`, `_apw.`, `pAPW`, `apw-*+jws`, `ltp-*-v1`, `urn:ltp:schemas:0.1:*`, `W-01..W-09`, `R-01..R-05`, `T1..T5`, `E-10..E-16`, or historical anchors.
 2. **G1-pinned files and digests are immutable without a new recorded owner decision.** The 18 files listed in [`spec/LTP-APPROVAL-RECORD.md`](./spec/LTP-APPROVAL-RECORD.md), the `spec/schemas/v0.1/` bundle, and the `spec/vectors/` corpora are verified byte-for-byte and by RFC 8785 (JCS) SHA-256 digests in CI.
-3. **Zero runtime code dependencies.** Specification assets must never import or depend on runtime code from Portaless or any other implementation. References to implementations belong only in clearly marked reference-implementation appendices.
+3. **Zero runtime code dependencies.** Specification assets must never import or depend on runtime code from any implementation. References to runtime source belong only in clearly marked reference-implementation appendices.
 4. **Preserve attribution and review records.** Author attribution (`Gerardo Loyola`), Annex A, and external review records (`linstarkcorp`) must remain intact.
 
 ## Local Verification

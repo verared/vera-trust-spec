@@ -13,7 +13,7 @@ Normative specifications, versioned JSON schemas, and cryptographic test vectors
 The **Vera Trust Stack** separates identity, evidence, local policy evaluation, and verifiable history into four distinct protocol layers:
 
 1. **APW (Authenticated Portable Web)** — Cryptographic site/entity identity (`did:apw`), DNS-anchored key history, signed state artifacts, and witness statements.
-2. **Local Trust Protocol (LTP)** — Decentralized evidence acquisition, proof packaging, and local policy evaluation: **each node applies its own policy to verified evidence** (no global authority, no centralized trust oracle).
+2. **Local Trust Protocol** — Decentralized evidence acquisition, proof packaging, and local policy evaluation: **each node applies its own policy to verified evidence** (no global authority, no centralized trust oracle).
 3. **SVRI (Site Verifiable Reputation Index)** — Consumable output vector derived from verified evidence tiers and inference flags, with qualitative public projections.
 4. **HSVR (Historical Site Verifiable Record)** — Verifiable historical record of trust/reputation state transitions.
 
@@ -21,7 +21,14 @@ The **Vera Trust Stack** separates identity, evidence, local policy evaluation, 
 
 ---
 
-## Repository Map
+## Canonical reading guide
+
+1. **Foundational architecture:** Start with [Vera Trust Stack architecture](./spec/LTP-STACK-ARCHITECTURE.md), the original architecture document in this snapshot. The [resolution chain proposal](./architecture/resolution-chain-proposal.md) and [runtime integration proposal](./architecture/ltp-runtime-integration-proposal.md) are historical design context.
+2. **Frozen specification (`v0.1.0-draft.1`):** See the [approval record and its 18 pinned files](./spec/LTP-APPROVAL-RECORD.md#candidate-tuple), [v0.1 schemas](./spec/schemas/v0.1/) and [test vectors](./spec/vectors/). G1 approval does not constitute a final normative release or deployment authorization.
+3. **Implementation and adoption:** Follow the [APW Starter Kit](./spec/STARTER-KIT.md). [Vera Trust Stack](https://github.com/verared/vera-trust-stack) is the separate TypeScript reference implementation; the specification and vectors do not depend on it.
+4. **Errata and provenance:** Read the [errata and historical link notes](./spec/ERRATA.md#editorial-notes-for-the-frozen-snapshot). Frozen files retain their original text and paths to preserve byte-level commitments. Earlier APW editions, the extraction plan and the architecture proposals retain source-repository references as historical context.
+
+## Specification map
 
 The verbatim, byte-identical normative snapshot lives under [`spec/`](./spec/) so that all 18 SHA-256 commitments in [`spec/LTP-APPROVAL-RECORD.md`](./spec/LTP-APPROVAL-RECORD.md) — including the original [`spec/README.md`](./spec/README.md) — verify unchanged:
 

@@ -1,6 +1,6 @@
 # Protocol APW — Especificacion Normativa v1.3
 
-> **ARCHIVO HISTÓRICO (español).** La especificación normativa canónica y vigente está en inglés en [`APW-SPEC-v1.3.md`](./APW-SPEC-v1.3.md). Esta copia en español se conserva íntegra por contexto y traducción; ante cualquier discrepancia (números, fórmulas, keywords) manda la versión en inglés.
+> **ARCHIVO HISTÓRICO (español).** La especificación normativa canónica y vigente está en inglés en [`APW-SPEC-v1.3.md`](./APW-SPEC-v1.3.md). Esta traducción conserva el contexto histórico; se actualizaron los enlaces de licencia. Ante cualquier discrepancia (números, fórmulas, keywords) manda la versión en inglés.
 >
 > El suplemento normativo SVRI v1.0 (ERRATA E-16) tiene documento canónico propio en [`SVRI-v1.0.md`](./SVRI-v1.0.md).
 
@@ -28,7 +28,7 @@
 
 ## Licencia y gobernanza
 
-**Licencia del estandar.** Este documento, [`ERRATA.md`](./ERRATA.md) y [`APW-VECTORS-v1.3.md`](./APW-VECTORS-v1.3.md) se publican bajo **CC BY 4.0**: copiar, traducir, reimplementar y usar comercialmente esta especificacion es permitido, con atribucion al autor. La implementacion de referencia (codigo de Portaless en este repositorio) es **AGPL-3.0** (ver [`LICENSE`](../../LICENSE) y [`docs/architecture/licensing-boundaries.md`](../architecture/licensing-boundaries.md)): la licencia del estandar no contagia al codigo, ni la licencia del codigo al estandar.
+**Licencia del estándar.** Este documento, [`ERRATA.md`](./ERRATA.md) y [`APW-VECTORS-v1.3.md`](./APW-VECTORS-v1.3.md) se publican bajo [CC BY 4.0](../LICENSE). Para distinguir la licencia de la especificación y la de una implementación, consulta la [nota editorial de licencias y procedencia](./ERRATA.md#editorial-notes-for-the-frozen-snapshot).
 
 **Autoria y edicion.** Autor: Gerardo Loyola. El proyecto Portaless edita y publica las versiones de este documento. El Anexo A adapta el Sistema de Scoring Universal de Veranet, del mismo autor; eso no restringe reimplementar el Anexo A.
 
