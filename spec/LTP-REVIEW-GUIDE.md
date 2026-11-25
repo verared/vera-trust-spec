@@ -12,7 +12,7 @@ not independently approved or deployable snapshots.
 |---|---|---|
 | `f762837` | #102 heap regression, preserved | Fixed seed, all set/update/remove/pop paths, parent/child order, exact positions and model comparison after every operation. No production heap edits. |
 | `adf5593` | S1 schemas | Five closed/typed candidate schemas, null/absence and profile constraints; manifest commitments. No normative prose is covered by these digests. |
-| `9ed8868` | Vectors and tools | Static original signed bytes, 41-asset manifest and separately pinned numeric extension; isolated package/lock, Python author, Node/native/JOSE/OpenSSL/dnspython cross-checks and numeric/tamper tests. Shared backend versions must be disclosed; no LTP engine verdicts are claimed. |
+| `9ed8868` | Vectors and tools | Static original signed bytes, 41-asset manifest and separately pinned numeric extension; isolated package/lock, Python author, Node/native/JOSE/OpenSSL/dnspython cross-checks and numeric/tamper tests. Shared backend versions must be disclosed; no Local Trust Protocol engine verdicts are claimed. |
 | `246cdc8` | Original documentation / normative prose | Serialization, bootstrap scope, architecture, classification, S3-core gaps/proposed A/B criterion, shared primitive-backend limitation, CI observation/proposal and test-only fixture notes. Review contract regressions; no gate approval, formulas or signed bytes changed. Historical text pin, superseded by the owner-naming follow-up below. |
 | `dc4ecca` | CI / documentation lint | Separate spec dependency installation; standalone cross-check job; root lint in existing required suites; positive/negative link-boundary and CI-scope tests. Moving cross-check into a required job is proposed in prose only; no protection settings changed. |
 | `e3af413` | Scanner fixtures | 28 individually labeled `solo pruebas` findings, exact introducing-commit fingerprints rebound to `9ed8868`; literal key/seed/token/digest non-reuse in tracked production source with an injected negative. No path/rule-wide exclusion. |
@@ -68,7 +68,7 @@ prefix states, independent root, signed three-key history and shared resource
 context. AB-STATIC-02…07 provide the six controlled negatives. Review the actual
 material references and inner relations, not only the outer manifest commitment.
 The audit checks byte algebra, fixed arithmetic and signature primitives; it
-does not execute the trace or calculate the literal LTP verdicts.
+does not execute the trace or calculate the literal Local Trust Protocol verdicts.
 
 The current [approval tuple](./LTP-APPROVAL-RECORD.md) binds the final prose Git
 SHA, 17 exact spec-file hashes, preserved commitments and v0.3. Its scope is

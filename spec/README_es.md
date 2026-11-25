@@ -1,6 +1,6 @@
 ## Protocolo APW y Veranet
 
-> **ARCHIVO HISTÓRICO (español).** La versión canónica y vigente está en inglés en [`README.md`](./README.md). Este archivo se conserva íntegro por contexto; ante discrepancias manda la versión en inglés.
+> **ARCHIVO HISTÓRICO (español).** El [índice canónico](../README.md#canonical-reading-guide) ofrece navegación y estado vigentes. Este archivo conserva el contexto histórico.
 
 Portaless es la implementación de referencia de **Protocol APW (Air Portal Website)**: un protocolo abierto de identidad criptográfica y confianza verificable para sitios web independientes, publicado formalmente en septiembre de 2026.
 
@@ -23,6 +23,6 @@ Portaless es la implementación de referencia de **Protocol APW (Air Portal Webs
 
 **Veranet**: es el nombre del resultado final hacia el que converge Protocol APW — una red de sitios verificablemente confiables, con identidad criptográfica inmutable y post-cuántica, donde ningún humano, máquina, agente o IA puede falsificar la procedencia de un sitio o de su contenido sin que quede una señal auditable públicamente. Veranet no es una plataforma centralizada: es el estado de la red cuando suficientes sitios independientes adoptan Protocol APW y se descubren entre sí a través del **Portaless Index** — una capa de descubrimiento federado, con identidad verificable, score de confianza previo a la agregación, y capacidad de cobro por acceso incorporados desde el diseño.
 
-**Estado real de implementación** (verificable por commit, no por promesa): la especificación v1.3 está implementada de punta a punta en este repositorio — resolución DNS-over-HTTPS, identidad `did:apw` con rotación, artefactos firmados (JWS + JCS), historial de atestaciones anclado en el DNS, puntuación por dimensiones y gobernanza de lectura. `packages/apw-resolver/` es la implementación de referencia; ver [`ROADMAP.md`](../../ROADMAP.md) para el estado exacto y actualizado de cada pieza.
+**Estado de adopción:** consulta la [guía canónica](../README.md#canonical-reading-guide) para localizar la implementación separada, la arquitectura y el estado del borrador.
 
 Fecha de publicación de esta especificación: **septiembre de 2026**.
